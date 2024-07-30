@@ -1,9 +1,5 @@
-
-
-import { Container, CssBaseline, createTheme } from "@mui/material";
-
+import { Container, CssBaseline, createTheme, Box } from "@mui/material";
 import Header from "./Header";
-
 import { ThemeProvider } from "@emotion/react";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
@@ -12,11 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import agent from "../api/agent";
 import { getCookie } from "../util/util";
 import LoadingComponent from "./LoadingComponent";
-
 import { useAppDispatch } from "../store/configureStore";
 import { setBasket } from "../../features/basket/basketSlice";
-
-
+import WebSocketDemo from "../../components/WebSocketDemo"; // 更新路径
 
 function App() {
     const dispatch = useAppDispatch();
@@ -32,7 +26,7 @@ function App() {
         } else {
             setLoading(false)
         }
-    }, [dispatch])
+    }, [dispatch]);
 
     const [darkMode, setDarkMode] = useState(false);
     const paletteType = darkMode ? 'dark' : 'light';
@@ -43,30 +37,27 @@ function App() {
                 default: paletteType === 'light' ? '#eaeaea' : '#121212'
             }
         }
-    })
+    });
 
-    function handleThemeChange(){
+    function handleThemeChange() {
         setDarkMode(!darkMode);
     }
 
-    if (loading) return <LoadingComponent message="Initialising"/>
+    if (loading) return <LoadingComponent message="Initialising" />;
 
     return (
         <ThemeProvider theme={theme}>
             <ToastContainer position='bottom-right' hideProgressBar theme='colored' />
             <CssBaseline />
-            <Header darkMode={darkMode} handleThemeChange={handleThemeChange } />
-            <Container>
-                
-                <Outlet />
-            </Container>
-
-          
+            <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
+            <Box sx={{ paddingTop: 2, paddingBottom: 2 }}>
+                <Container maxWidth="lg">
+                    <WebSocketDemo /> {/* 添加 WebSocketDemo 组件 */}
+                    <Outlet />
+                </Container>
+            </Box>
         </ThemeProvider>
-    
     )
 }
 
-export default App
-
-
+export default App;

@@ -1,12 +1,8 @@
-
-
 import { Box, Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-
 import { Add, Delete, Remove } from "@mui/icons-material";
 import agent from "../../app/api/agent";
 import { useState } from "react";
 import { LoadingButton } from "@mui/lab";
-
 import BasketSummary from "./BasketSummary";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
@@ -19,25 +15,27 @@ export default function BasketPage() {
         loading: false,
         name: ''
     });
+
     function handleAddItem(productId: number, name: string) {
         setStatus({ loading: true, name });
         agent.Basket.addItem(productId)
             .then(basket => dispatch(setBasket(basket)))
             .catch(error => console.log(error))
-            .finally(() => setStatus({loading: false,name:''}))
+            .finally(() => setStatus({ loading: false, name: '' }));
     }
 
-    function handleRemoveItem(productId: number, quantity: number = 1,name:string) {
+    function handleRemoveItem(productId: number, quantity: number = 1, name: string) {
         setStatus({ loading: true, name });
         agent.Basket.removeItem(productId, quantity)
-            .then(() => dispatch(removeItem({productId, quantity})))
+            .then(() => dispatch(removeItem({ productId, quantity })))
             .catch(error => console.log(error))
-            .finally(() => setStatus({ loading: false, name: '' }))
+            .finally(() => setStatus({ loading: false, name: '' }));
     }
+
     if (!basket) return <Typography variant='h3'>Your basket is empty</Typography>
 
     return (
-        <>
+        <Box sx={{ mt: 4 }}>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} >
                     <TableHead>
@@ -75,7 +73,6 @@ export default function BasketPage() {
                                         color='secondary'>
                                         <Add />
                                     </LoadingButton>
-
                                 </TableCell>
                                 <TableCell align="right">{((item.price / 100) * item.quantity).toFixed(2)}</TableCell>
                                 <TableCell align="right">
@@ -92,10 +89,9 @@ export default function BasketPage() {
                 </Table>
             </TableContainer>
 
-
-            <Grid container>
-                <Grid item xs={6} />
-                <Grid item xs={6}>
+            <Grid container spacing={2} sx={{ mt: 2 }}>
+                <Grid item xs={12} md={6} />
+                <Grid item xs={12} md={6}>
                     <BasketSummary />
                     <Button
                         component={Link}
@@ -108,9 +104,6 @@ export default function BasketPage() {
                     </Button>
                 </Grid>
             </Grid>
-        </>
-
-
-        
+        </Box>
     )
 }

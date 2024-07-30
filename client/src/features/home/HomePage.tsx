@@ -1,11 +1,10 @@
-import { Container, Typography } from "@mui/material";
-
+import { Box, Typography } from "@mui/material";
 
 export default function HomePage() {
-
     return (
-        <Container>
-            <Typography gutterBottom variant={'h2'}>Home page</Typography>
-        </Container>
-    )
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4, px: 2 }}>
+            <Typography gutterBottom variant='h2' align="center">Home page</Typography>
+            
+        </Box>
+    );
 }
