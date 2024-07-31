@@ -45,9 +45,9 @@ One aspect of this project that I am particularly proud of is my ability to aggr
     npm install
     ```
 3. Run the WebSocket server:
-  ```sh
-  node server.js
-  ```
+    ```sh
+    node server.js
+    ```
 4. Start the development server:
     ```sh
     npm start
