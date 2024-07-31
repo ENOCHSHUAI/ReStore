@@ -44,7 +44,7 @@ One aspect of this project that I am particularly proud of is my ability to aggr
     ```sh
     npm install
     ```
-3. Run the WebSocket server:
+3. Run the WebSocket server(Navigate to the project root directory and install dependencies):
     ```sh
     node server.js
     ```
